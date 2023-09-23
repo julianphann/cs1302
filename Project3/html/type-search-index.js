@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"edu.uga.cs1302.txtbuff","l":"Editable"},{"p":"edu.uga.cs1302.txtbuff","l":"EditableTextLine"},{"p":"edu.uga.cs1302.txtbuff","l":"TextLine"},{"p":"edu.uga.cs1302.txtbuff","l":"TextLineIndexOutOfBoundsException"}];updateSearchResults();

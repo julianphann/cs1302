@@ -1,0 +1,215 @@
+package edu.uga.cs1302.vehicles;
+import java.util.Scanner;
+public class Main {
+  public static void main(String[] args) {
+      Scanner keyboard = new Scanner(System.in);
+
+      Vehicle[] vehicles = new Vehicle[15];
+      
+      vehicles[0] = new Automobile("Bronco", "Ford", 2023, 5, 100, 418);
+      vehicles[1] = new Automobile("Model 3", "Tesla", 2023, 5, 162, 455);
+      vehicles[2] = new Automobile("F-150", "Ford", 2023, 5, 110,700);
+
+      vehicles[3] = new Airplane ("Boeing 777", "Boeing", 1995, 426, 644, 2, 43100, 8555 );
+      vehicles[4] = new Airplane ("Comac C919", "Commercial Aircraft Corporation of China", 2023, 168, 600, 2, 39800, 3500);
+      vehicles[5] = new Airplane	("Airbus A320", "Aribus",1987, 180, 561, 2, 41000, 4600);
+
+      vehicles[6] = new Ship("Titanic", "Harland and Wolff", 1909, 1178, 26, "White Star Line", 46329);
+      vehicles[7]= new Ship("Norwegian Encore", "Norwegian Cruise Line", 2019, 3998,100, "Norwegian Cruise Line Holdings Ltd",169116);
+      vehicles[8] = new Ship("Oasis of the Seas", "Royal Caribbean International", 2009, 5602,300, "Royal Caribbean Group",225282);
+
+      vehicles[9] = new FlyingBoat("Jolly Roger", "Peter Pan", 1700, 100, 200, 2, 20000, 9000, "Disney", 50000);
+      vehicles[10] = new FlyingBoat("The Flying Dutchman", "The Flying Dutchman", 1600, 0, 2300, 2, 30000, 10000, "Spongebob", 60000);
+      vehicles[11] = new FlyingBoat("PBY Catalina", "Consolidated Aircraft", 1936, 195, 28, 2, 7000, 2504, "Consolidated Aircraft Co", 1700 );
+
+      vehicles[12] = new MagicSchoolBus("Germ Fighter", "Frizzle Vehicles",1970, 9, 1, 400, 2,400, 300, "Walkerville Elementary School", 1);
+      vehicles[13] = new MagicSchoolBus("Ocean Special","Frizzle Vehicles",1970, 9, 26, 300 ,2 , 30000, 10000,"Walkerville Elementary School", 1700);
+      vehicles[14] = new MagicSchoolBus("Bat Mobile", "Frizzle Vehicles", 1970,9, 40, 700, 2, 20000, 2500, "Walkerville Elementary School", 1700);
+      
+
+
+      //Menu
+      String menu="\n Menu \n"
+	  +"Press 1 to see how many vehicles are in the system.\n"
+	  +"Press 2 to see the name and the class of each vehicle.\n"
+	  +"Press 3 to see which vehicles can fly.\n"
+	  +"Press 4 to see which vehicles can float.\n"
+	  +"Press 5 to see which vehicles can float AND fly.\n"
+	  +"Press 6 to see a description of each vehicle.\n"
+	  +"Press h to see brief help information for your system.\n"
+	  +"Press q to terminate the program.\n";
+
+      //used to determine when to stop the while loop
+      boolean quit=false;
+      //user's input will be stored as command
+      String command;
+      //While loop
+      while(quit==false){
+	  System.out.print(menu);
+
+	  command=keyboard.next();
+	  System.out.println("");
+	  //option 1
+	  if(command.equals("1")){
+	      System.out.println("There are "+ Vehicle.getInstanceCount()+" vehicles in the system");
+	  }
+	  else if(command.equals("2")){
+	      String option2;
+	      for (Vehicle vehicle : vehicles) {
+		  if (vehicle instanceof Automobile){
+			  option2="Name: "+vehicle.getName()+"\n"+ "Type: Automobile \n";
+			  System.out.println(option2);
+		      }
+		      else if (vehicle instanceof Airplane){
+			  option2="Name: "+vehicle.getName()+"\n"+ "Type: Airplane \n";
+                          System.out.println(option2);
+		      }
+		      else if (vehicle instanceof Ship){
+                          option2="Name: "+vehicle.getName()+"\n"+ "Type: Ship \n";
+                          System.out.println(option2);
+                      }
+		      else if (vehicle instanceof FlyingBoat){
+                          option2="Name: "+vehicle.getName()+"\n"+ "Type: Flying Boat \n";
+                          System.out.println(option2);
+                      }
+		      else if (vehicle instanceof MagicSchoolBus){
+                          option2="Name: "+vehicle.getName()+"\n"+ "Type: Magic School Bus \n";
+                          System.out.println(option2);
+                      }
+	      }//for loop
+	  }//command 2
+	  else if(command.equals("3")){
+	      String option3;
+	      for (Vehicle vehicle : vehicles) {
+		  if(vehicle instanceof Airplane){
+		      option3="Name: "+vehicle.getName()+"\n"+"Type: Airplane\n";
+		      System.out.println(option3);
+		  }
+		  if(vehicle instanceof FlyingBoat){
+                      option3="Name: "+vehicle.getName()+"\n"+"Type: Flying Boat\n";
+                      System.out.println(option3);
+		  }  
+	      }
+	  }//command 3
+	  else if(command.equals("4")){
+	      String option4;
+              for (Vehicle vehicle : vehicles) {
+                  if(vehicle instanceof Ship){
+                      option4="Name: "+vehicle.getName()+"\n"+"Type: Ship\n";
+                      System.out.println(option4);
+                  }
+                  if(vehicle instanceof FlyingBoat){
+                      option4="Name: "+vehicle.getName()+"\n"+"Type: Flying Boat\n";
+                      System.out.println(option4);
+                  }
+		  if(vehicle instanceof MagicSchoolBus){
+                      option4="Name: "+vehicle.getName()+"\n"+"Type: Magic School Bus\n";
+                      System.out.println(option4);
+                  }
+              } 
+	  }//command 4
+	  else if(command.equals("5")){
+	      String option5;
+	      for (Vehicle vehicle : vehicles){
+	          if(vehicle instanceof FlyingBoat){
+                      option5="Name: "+vehicle.getName()+"\n"+"Type: Flying Boat\n";
+                      System.out.println(option5);
+                  }
+                  if(vehicle instanceof MagicSchoolBus){
+                      option5="Name: "+vehicle.getName()+"\n"+"Type: Magic School Bus\n";
+                      System.out.println(option5);
+                  }
+              }
+	  }//command 5
+	  else if(command.equals("6")){
+	      String option6;
+	       for (int i = 0; i < vehicles.length; i++) {
+		   Vehicle vehicle = vehicles[i];
+		  if(vehicle instanceof Automobile){
+		      Automobile automobile = (Automobile) vehicle;
+		      option6="Type: Automobile\n"+"Name: "+automobile.getName()+
+			  "\n"+"Manufacturer: "+automobile.getManufacturer()+
+			  "\n"+"Year of manufacture: "+automobile.getYearOfManufacture()+
+			  "\n"+"Max Passengers: "+automobile.getMaxPassengers()+
+			  "\n"+"Top Speed: "+automobile.getTopSpeed()+
+			  "\n"+"Engine Horsepower: "+automobile.getEngineHorsepower()
+			  +"hp\n";
+		      System.out.println(option6);
+		  }
+	      if(vehicle instanceof Airplane){
+		  Airplane airplane = (Airplane) vehicle;
+                      option6="Type: Airplane\n"+"Name: "+airplane.getName()+
+                          "\n"+"Manufacturer: "+airplane.getManufacturer()+
+                          "\n"+"Year of manufacture: "+airplane.getYearOfManufacture()+
+                          "\n"+"Max Passengers: "+airplane.getMaxPassengers()+
+                          "\n"+"Top Speed: "+airplane.getTopSpeed()+
+                          "\n"+"Number of Engines: "+airplane.getNumberOfEngines()+
+			  "\n"+"Max Altitude: "+airplane.getMaxAltitude()+
+			  "\n"+"Max Range: "+airplane.getMaxRange()
+                          +"\n";
+                      System.out.println(option6);
+                  }
+	      if(vehicle instanceof Ship){
+                  Ship ship = (Ship) vehicle;
+                      option6="Type: Ship\n"+"Name: "+ship.getName()+
+                          "\n"+"Manufacturer: "+ship.getManufacturer()+
+                          "\n"+"Year of manufacture: "+ship.getYearOfManufacture()+
+                          "\n"+"Max Passengers: "+ship.getMaxPassengers()+
+                          "\n"+"Top Speed: "+ship.getTopSpeed()+
+                          "\n"+"Shipping Line Owner: "+ship.getShippingLineOwner()+
+                          "\n"+"Tonnage: "+ship.getTonnage()
+                          +"\n";
+                      System.out.println(option6);
+                  }
+	      if(vehicle instanceof FlyingBoat){
+                  FlyingBoat flyingBoat = (FlyingBoat) vehicle;
+                      option6="Type: Flying Boat\n"+"Name: "+flyingBoat.getName()+
+                          "\n"+"Manufacturer: "+flyingBoat.getManufacturer()+
+                          "\n"+"Year of manufacture: "+flyingBoat.getYearOfManufacture()+
+                          "\n"+"Max Passengers: "+flyingBoat.getMaxPassengers()+
+                          "\n"+"Top Speed: "+flyingBoat.getTopSpeed()+
+                          "\n"+"Number of Engines: "+flyingBoat.getNumberOfEngines()+
+                          "\n"+"Max Altitude: "+flyingBoat.getMaxAltitude()+
+                          "\n"+"Max Range: "+flyingBoat.getMaxRange()+
+			  "\n"+"Shipping Line Owner: "+flyingBoat.getShippingLineOwner()+
+                          "\n"+"Tonnage: "+flyingBoat.getTonnage()
+			  +"\n";
+                      System.out.println(option6);
+                  }if(vehicle instanceof MagicSchoolBus){
+                  MagicSchoolBus magicSchoolBus = (MagicSchoolBus) vehicle;
+                      option6="Type: Airplane\n"+"Name: "+magicSchoolBus.getName()+
+                          "\n"+"Manufacturer: "+magicSchoolBus.getManufacturer()+
+                          "\n"+"Year of manufacture: "+magicSchoolBus.getYearOfManufacture()+
+                          "\n"+"Max Passengers: "+magicSchoolBus.getMaxPassengers()+
+                          "\n"+"Top Speed: "+magicSchoolBus.getTopSpeed()+
+			  "\n"+"Engine Horsepower: "+magicSchoolBus.getEngineHorsepower()+
+                          "\n"+"Number of Engines: "+magicSchoolBus.getNumberOfEngines()+
+                          "\n"+"Max Altitude: "+magicSchoolBus.getMaxAltitude()+
+                          "\n"+"Max Range: "+magicSchoolBus.getMaxRange()+
+			  "\n"+"Shipping Line Owner: "+magicSchoolBus.getShippingLineOwner()+
+                          "\n"+"Tonnage: "+magicSchoolBus.getTonnage()
+                          +"\n";
+                      System.out.println(option6);
+                  }
+	      }
+	  }//command 6
+	  else if(command.equalsIgnoreCase("h")) {
+		System.out.println("Press 1 to see how many vehicles are in the system.\n" +
+                      "Press 2 to see the name and kind of each vehicle. \n" +
+	              "Press 3 to see which vehicles can fly. \n" +
+	              "Press 4 to see which vehicles can float. \n" +
+	              "Press 5 to see which vehicles can float AND fly. \n" +
+	              "Press 6 to see a description of each vehicle. \n" +
+	              "Press h to see brief help information for your system. \n" +
+	              "Press q to terminate the program. \n");
+	  }//h
+	  else if(command.equalsIgnoreCase("q")){
+	       quit=true;
+	  }//quit
+	  else{
+	      System.out.println("Please enter a valid option.");
+	  }//error message
+      }//while
+  }
+}
+

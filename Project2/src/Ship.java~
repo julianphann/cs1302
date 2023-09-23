@@ -1,0 +1,26 @@
+package edu.uga.cs1302.vehicles;
+//Ship class is defined as a subclass of Vehicle and implements Floatable
+public class Ship extends Vehicle implements Floatable{
+        // Ship has a given shipping line owner                                                                                 
+        private String shippingLineOwner;
+        private int tonnage;
+        public Ship(String name, String manufacturer, int yearOfManufacture,int maxPassengers, int topSpeed, String shippingLineOwner, int tonnage){
+            super(name,manufacturer,yearOfManufacture,maxPassengers,topSpeed);
+        this.shippingLineOwner=shippingLineOwner;
+	this.tonnage=tonnage; 
+        public String getShippingLineOwner(){
+            return shippingLineOwner;
+        }
+        public void setShippingLineOwner(String shippingLineOwner){
+           this.shippingLineOwner=shippingLineOwner;
+        }
+        //Floatable methods                                                                                                     
+        public int getTonnage(){
+            return tonnage;
+        }
+        public void setTonnage(int tonnage){
+            this.tonnage=tonnage;
+        }
+
+
+}

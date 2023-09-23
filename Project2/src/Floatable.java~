@@ -1,0 +1,6 @@
+package edu.uga.cs1302.vehicles;
+
+public interface Floatble{
+    int getTonnage();
+    void setTonnage(int tonnage);
+}

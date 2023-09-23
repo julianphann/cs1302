@@ -1,0 +1,39 @@
+package edu.uga.cs1302.quiz;
+
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class Question{
+    public static final int POSSIBLE_CHOICES=3;
+
+    private Country country;
+    private ArrayList<String> options;
+
+    //constructor
+    public Question(Country country, ArrayList<String> allContinents){
+	this.country=country;
+
+	options= new ArrayList<>();
+	options.add(country.getContinent());
+
+	//while options are not completely added
+	while(options.size() !=POSSIBLE_CHOICES){
+	    int randomValue=ThreadLocalRandom.current().nextInt(allCOntinents.size());
+	    String continent = allContinents.get(randomValue);
+	    if(!options.contains(continent)){
+		options.add(ThreadLocalRandom.current().nextInt(options.size()+1), continent);
+	    }
+	}
+    }
+
+    public Country getCountry(){
+	return country;
+    }
+    public ArrayList<String> getOptions(){
+	return options;
+    }
+    public boolean answer(int index){
+	return country.getContinent().equals(options.get(index));
+    }
+}
+

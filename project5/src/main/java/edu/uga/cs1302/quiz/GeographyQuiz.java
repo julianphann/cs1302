@@ -1,0 +1,330 @@
+package edu.uga.cs1302.quiz;
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+
+import javafx.application.Application;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.util.converter.DateTimeStringConverter;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
+
+    public class GeographyQuiz extends Application{
+    //csv file and storing quiz scores in a binary file- file paths
+    private static final String COUNTRIES_FILE ="/home/myid/jnp71386/cs1302/project5/src/main/resources/country_continent.csv", SCORES_FILE = "quizzes.dat";
+
+    //class variablea
+    //countries and results
+    private CountryCollection countryCollection = new CountryCollection();
+    private ArrayList<QuizResult> quizResults = new ArrayList<>();
+
+    //gui components
+    private Stage primaryStage;
+
+    //new game
+    private Stage stageNewGame;
+    private Scene quizScene, closeScene;
+    private Label lblQuestion, lblAnswer, lblFinalScore;
+    private ToggleGroup options;
+    private ArrayList<RadioButton> buttonOptions;
+    private Button submit, close;
+
+    //view scores gui components
+    private Stage stageViewScores;
+    private TextArea scores;
+    private Button btnCloseViewScores;
+    
+    //help gui componenets
+    private Stage help;
+    private TextArea txtHelp;
+    private Button btnCloseHelp;
+    //current quiz and current question
+    private Quiz currentQuiz;
+    private int currentQuestion;
+
+	Background blueBackground = new Background(new BackgroundFill(Color.LIGHTBLUE, null, null));
+	
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+	this.primaryStage=primaryStage;
+	countryCollection.readCountries(COUNTRIES_FILE);
+	readQuizResults();
+
+	BorderPane root = new BorderPane();
+	root.setPadding(new Insets(15));
+	root.setBackground(blueBackground);
+	Label lblSummary = new Label(
+				     "GEOGRAPHY QUIZ GAME"
+				     + "\n\nTest your knowledge of countries"
+				     +"\nby answering a series of 6 questions."
+				     +"\nThe questions will ask you to answer the continent"
+				     +"\nthat the country is located in from three options.");
+	lblSummary.setTextAlignment(TextAlignment.CENTER);
+	root.setCenter(lblSummary);
+
+	//buttons
+	Button btnNewQuiz=new Button("New Quiz");
+	Button btnViewResults = new Button("View Results");
+	Button btnHelp = new Button("Help");
+	Button btnExit = new Button("Quit");
+
+	HBox pnlButtons= new HBox(30, btnNewQuiz, btnViewResults, btnHelp, btnExit);
+	pnlButtons.setAlignment(Pos.CENTER);
+
+	root.setBottom(pnlButtons);
+
+	createNewGameStage();
+	createViewScoresStage();
+	createHelpStage();
+
+	btnNewQuiz.setOnAction(this::newGameHandler);
+       	btnViewResults.setOnAction(this::displayScores);
+	btnHelp.setOnAction(e -> help.show());
+	btnExit.setOnAction(e -> primaryStage.close());
+
+	Scene scene = new Scene(root, 600, 400);
+       	primaryStage.setScene(scene);
+        primaryStage.setTitle("Geography Quiz App");
+        primaryStage.show();
+    }
+
+    //new game stage
+    public void createNewGameStage(){
+	stageNewGame=new Stage();
+	stageNewGame.initModality(Modality.APPLICATION_MODAL);
+	stageNewGame.setTitle("Quiz");
+
+	lblQuestion = new Label("");
+       	lblAnswer = new Label("");
+       	options = new ToggleGroup();
+       	buttonOptions = new ArrayList<>();
+
+	//buttons in the quiz - only one can be selected at a time
+	for (int i = 0; i < Question.POSSIBLE_CHOICES; i++) {
+      	RadioButton rbOption = new RadioButton();
+       	buttonOptions.add(rbOption);
+	rbOption.setToggleGroup(options);
+	}
+
+	submit = new Button("Submit");
+       	close = new Button("Close");
+
+	//submitHandler will be executed when user clicks submit button
+       	submit.setOnAction(this::submitHandler);
+
+	//QUIZ SCENE
+	VBox root = new VBox(10, lblQuestion);
+	root.setBackground(blueBackground);
+       	root.setPadding(new Insets(10, 50, 10, 50));
+       	root.setAlignment(Pos.CENTER_LEFT);
+       	root.getChildren().addAll(buttonOptions);
+       	root.getChildren().addAll(submit, lblAnswer);
+       	quizScene = new Scene(root, 800, 500);
+	stageNewGame.setScene(quizScene);
+
+       	lblFinalScore = new Label();
+       	close.setOnAction(e -> stageNewGame.close());
+       	VBox closeRoot = new VBox(10, lblFinalScore, close);
+        closeRoot.setAlignment(Pos.CENTER);
+       	closeScene = new Scene(closeRoot, 500, 500);
+    }
+
+    //new game button handler
+    private void newGameHandler(ActionEvent e){
+	currentQuiz=new Quiz(countryCollection);
+	currentQuestion=0;
+	stageNewGame.setScene(quizScene);
+	displayCurrentQuestion();
+       	stageNewGame.show();
+    }
+
+    //display current question
+    private void displayCurrentQuestion(){
+	Question question = currentQuiz.getQuestion(currentQuestion);
+	ArrayList<String> choices = question.getOptions();
+	lblQuestion.setText(String.format("Question %d: In which continent is %s located?", currentQuestion + 1,question.getCountry().getCountry()));
+	for(int i=0; i< choices.size();i++){
+	    buttonOptions.get(i).setText(choices.get(i));
+        }
+	lblAnswer.setText("");
+        options.selectToggle(null);
+									    
+    }
+    //submit handler
+    private void submitHandler(ActionEvent e){
+	int index=buttonOptions.indexOf(options.getSelectedToggle());
+	if(index==-1){//nothing selected
+	    lblAnswer.setText("Please select an option");
+	    return;
+	}
+	else{
+	    boolean answer=currentQuiz.answer(currentQuestion, index);
+	    if(answer){
+		lblAnswer.setText("Correct");
+	    }
+	    else{
+		lblAnswer.setText("Incorrect, the correct answer is "+ currentQuiz.getQuestion(currentQuestion).getCountry().getContinent());
+		
+	    }
+
+    Task<Void> delayedClosing = new Task<Void>(){
+	@Override
+	protected Void call(){
+	    try{
+		TimeUnit.SECONDS.sleep(1);
+	    }
+	    catch(InterruptedException ex){
+		System.out.println(e);
+	    }
+	    return null;
+	}
+    };
+    //next question after the delay - move to next question or show final score
+    delayedClosing.setOnSucceeded(ex->{
+	    if(currentQuestion == Quiz.TOTAL_QUESTIONS-1){
+		try{
+		    quizResults.add(0, new QuizResult(currentQuiz.getScore()));
+		    saveQuizResults();
+		}
+		catch(Exception e1){
+		    e1.printStackTrace();
+		}
+		lblFinalScore.setText("Your score is "+currentQuiz.getScore()+ " out of "+Quiz.TOTAL_QUESTIONS);
+	        stageNewGame.setScene(closeScene);
+	    }		  
+	    else{
+		currentQuestion++;
+		displayCurrentQuestion();
+	    }
+	});
+    new Thread(delayedClosing).start();
+	}
+    }
+    //save results in binary file
+    public void saveQuizResults() throws Exception{
+	try{
+	ObjectOutputStream oos= new ObjectOutputStream(new FileOutputStream(SCORES_FILE));
+	oos.writeObject(quizResults);
+	oos.close();
+	}
+	catch(IOException e){
+	    e.printStackTrace();
+	}
+    }
+
+    public void readQuizResults() throws Exception{
+	try{
+	    ObjectInputStream oos = new ObjectInputStream(new FileInputStream(SCORES_FILE));
+	    quizResults = (ArrayList<QuizResult>) oos.readObject();
+      	    oos.close();
+	}
+	catch(FileNotFoundException e){
+	    quizResults = new ArrayList<>();
+	}
+	catch (IOException | ClassNotFoundException e){
+	    e.printStackTrace();
+	}
+    }
+    //view scores
+    private void createViewScoresStage() {
+		stageViewScores = new Stage();
+		stageViewScores.setTitle("Scores");
+		scores = new TextArea();
+		scores.setPrefRowCount(20);
+		scores.setPrefColumnCount(100);
+		scores.setEditable(false);
+		scores.setFont(new Font("Monospaced", 15));
+		stageViewScores.initModality(Modality.APPLICATION_MODAL);
+
+		btnCloseViewScores = new Button("Close");
+		btnCloseViewScores.setOnAction(e -> stageViewScores.close());
+
+		VBox root = new VBox(10, scores, btnCloseViewScores);
+		root.setBackground(blueBackground);
+		root.setPadding(new Insets(10));
+
+		Scene scene = new Scene(root, 800, 500);
+		stageViewScores.setScene(scene);
+	}
+    //display scores
+    public void displayScores(ActionEvent event) {
+		DateTimeStringConverter converter = new DateTimeStringConverter("dd/MM/yyyy hh:mm:ss");
+		scores.setText("");
+		for (QuizResult quizResult : quizResults) {
+		       scores.appendText(
+					String.format("%s \t\t %d%n", converter.toString(quizResult.getDate()), quizResult.getScore()));
+		}
+		stageViewScores.show();
+    }
+    //help stage
+private void createHelpStage() {
+		help = new Stage();
+		help.setTitle("Help");
+		txtHelp = new TextArea();
+		txtHelp.setPrefRowCount(20);
+		txtHelp.setPrefColumnCount(100);
+		txtHelp.setEditable(false);
+		txtHelp.setFont(new Font("monospaced", 15));
+		help.initModality(Modality.APPLICATION_MODAL);
+
+		txtHelp.setText("Geography Quiz Instructions\n"
+				+ "\n1. New Quiz: The Geography Quiz starts in a new window and presents 6 questions (one by by one) to the player."
+				+ "\n             Each question asks user to select the continent of a country from the possible 3 choices."
+				+ "\n             After selecting the choice, user can press submit. The result will be displayed in the same screen"
+				+ "\n             and the next question is shown after 1 second.Wait for the following question to be displayed"
+				+"before answering the following question. At the end of quiz, final score is also shown."
+				+ "\n"
+				+ "\n2. View Results: The Geography Quiz keeps track of all completed quizzes time and score "
+				+ "\n                     this option can be used to view all the past quiz scores sorted from latest to oldest"
+				+ ""
+				+ "\n\n3. Help: Shows the help screen"
+				+ ""
+				+ "\n\n4. Quit: This option closes the application");
+		
+
+		btnCloseHelp = new Button("Close");
+		btnCloseHelp.setOnAction(e -> help.close());
+
+		VBox root = new VBox(10, txtHelp, btnCloseHelp);
+		root.setBackground(blueBackground);
+		root.setPadding(new Insets(10));
+
+		Scene scene = new Scene(root, 800, 500);
+		help.setScene(scene);
+	}
+
+
+    //starts the JavaFX command by calling the "start" method
+    public static void main(String[] args) throws IOException {
+		launch(args);
+	}
+}

@@ -1,0 +1,19 @@
+package edu.uga.cs1302.vehicles;
+
+public interface Transporter{
+    int getMaxPassengers();
+    void setMaxPassengers(int maxPassenger);
+    int getTopSpeed();
+    void setTopSpeed(int topSpeed);
+}
+
+public interface Flyable{
+    int getMaxAltitude();
+    void setMaxAltitude(int maxAltitude);
+    int getMaxRange();
+    void setMaxRange(int maxRange);
+}
+public interface Floatble{
+    int getgetTonnage();
+    void setTonnage(int tonnage);
+}

@@ -1,0 +1,55 @@
+package edu.uga.cs1302.vehicles;
+public class MagicSchoolBus extends Vehicle implements Transporter,Floatable, Flyable{
+            private int engineHorsepower;
+            private int numberOfEngines;
+            private int maxAltitude;
+            private int maxRange;
+            private String shippingLineOwner;
+            private int tonnage;
+
+public MagicSchoolBus(String name,String manufacturer,int yearOfManufacture,int maxPassengers,int topSpeed,int engineHorsepower,int numberOfEngines,int maxAltitude,int maxRange,String shippingLineOwner,int tonnage){
+                super(name,manufacturer,yearOfManufacture,maxPassengers,topSpeed);
+	    this.engineHorsepower=engineHorsepower;
+            this.numberOfEngines=numberOfEngines;
+            this.maxAltitude= maxAltitude;
+            this.maxRange=maxRange;
+            this.shippingLineOwner=shippingLineOwner;
+            this.tonnage=tonnage;
+    }
+	    public int getEngineHorsepower(){
+		return engineHorsepower;
+	    }
+	    public void setEngineHorsepower(int engineHorsepower){
+		this.engineHorsepower=engineHorsepower;
+	    }
+	    public int getNumberOfEngines(){
+                return numberOfEngines;
+            }
+            public void setNumberOfEngines(int numberOfEngines){
+                this.numberOfEngines=numberOfEngines;
+            }
+            public int getMaxAltitude(){
+                return maxAltitude;
+            }
+            public void setMaxAltitude(int maxAltitude){
+                this.maxAltitude=maxAltitude;
+            }
+            public int getMaxRange(){
+                return maxRange;
+            }
+            public void setMaxRange(int maxRange){
+                this.maxRange=maxRange;
+            }
+            public String getShippingLineOwner(){
+                return shippingLineOwner;
+            }
+            public void setShippingLineOwner(String shippingLineOwner){
+                this.shippingLineOwner=shippingLineOwner;
+            }
+            public int getTonnage(){
+                return tonnage;
+            }
+            public void setTonnage(int tonnage){
+                this.tonnage=tonnage;
+            }
+}

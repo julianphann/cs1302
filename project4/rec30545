@@ -1,0 +1,83 @@
+project4:
+total 16
+-rw-r--r--. 1 myid 3178 Jul 18 21:27 pom.xml
+-rw-r--r--. 1 myid 3179 Jul 18 18:13 pom.xml~
+-rw-r--r--. 1 myid  716 Jul 20 10:16 README.txt
+-rw-r--r--. 1 myid    0 Jul 21 09:29 rec30545
+drwxr-xr-x. 3 myid 4096 Jul 18 10:31 SimpleLinkedList
+drwxr-xr-x. 4 myid   42 Jul 18 10:43 src
+
+project4/SimpleLinkedList:
+total 40
+drwxr-xr-x. 2 myid   10 Jul 18 10:31 classes
+-rw-r--r--. 1 myid 1606 Jul 18 10:31 DemoSimpleLinkedList2.java
+-rw-r--r--. 1 myid  139 Jul 18 10:31 DemoSimpleLinkedList2.log
+-rw-r--r--. 1 myid 2654 Jul 18 10:31 DemoSimpleLinkedList.java
+-rw-r--r--. 1 myid  947 Jul 18 10:31 DemoSimpleLinkedList.log
+-rw-r--r--. 1 myid 2329 Jul 18 10:31 JavaSimpleLinkedListTest.java
+-rw-r--r--. 1 myid 1538 Jul 18 10:31 README.txt
+-rw-r--r--. 1 myid 8916 Jul 18 10:31 SimpleLinkedList.java
+-rw-r--r--. 1 myid 2913 Jul 18 10:31 SimpleList.java
+
+project4/SimpleLinkedList/classes:
+total 0
+
+project4/src:
+total 0
+drwxr-xr-x. 3 myid 26 Jul 18 10:40 main
+drwxr-xr-x. 3 myid 18 Jul 17 23:14 test
+
+project4/src/main:
+total 0
+drwxr-xr-x. 3 myid 25 Jul 18 10:40 java
+
+project4/src/main/java:
+total 0
+drwxr-xr-x. 3 myid 25 Jul 18 10:41 edu
+
+project4/src/main/java/edu:
+total 0
+drwxr-xr-x. 3 myid 28 Jul 18 10:41 uga
+
+project4/src/main/java/edu/uga:
+total 0
+drwxr-xr-x. 3 myid 26 Jul 18 10:41 cs1302
+
+project4/src/main/java/edu/uga/cs1302:
+total 0
+drwxr-xr-x. 2 myid 152 Jul 19 22:41 list
+
+project4/src/main/java/edu/uga/cs1302/list:
+total 36
+-rw-r--r--. 1 myid   182 Jul 17 23:14 App.java
+-rw-r--r--. 1 myid 11403 Jul 19 22:41 SimpleLinkedList.java
+-rw-r--r--. 1 myid 11382 Jul 19 22:16 SimpleLinkedList.java~
+-rw-r--r--. 1 myid  2942 Jul 19 12:59 SimpleList.java
+-rw-r--r--. 1 myid  2942 Jul 19 12:24 SimpleList.java~
+
+project4/src/test:
+total 0
+drwxr-xr-x. 3 myid 25 Jul 17 23:14 java
+
+project4/src/test/java:
+total 0
+drwxr-xr-x. 3 myid 25 Jul 17 23:14 edu
+
+project4/src/test/java/edu:
+total 0
+drwxr-xr-x. 3 myid 28 Jul 17 23:14 uga
+
+project4/src/test/java/edu/uga:
+total 0
+drwxr-xr-x. 3 myid 26 Jul 17 23:14 cs1302
+
+project4/src/test/java/edu/uga/cs1302:
+total 0
+drwxr-xr-x. 2 myid 109 Jul 20 09:42 list
+
+project4/src/test/java/edu/uga/cs1302/list:
+total 12
+-rw-r--r--. 1 myid  291 Jul 17 23:14 AppTest.java
+-rw-r--r--. 1 myid 1653 Jul 20 09:42 SimpleLinkedListTest.java
+-rw-r--r--. 1 myid 1647 Jul 20 09:41 SimpleLinkedListTest.java~
+/home/myid/jnp71386/cs1302/project4:/home/myid/csci-1302a

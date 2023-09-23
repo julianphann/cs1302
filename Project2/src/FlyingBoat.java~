@@ -1,0 +1,48 @@
+package edu.uga.cs1302.vehicles;
+// Flying Boat                                                                                                                                                                                      
+        public class FlyingBoat extends Vehicle implements Floatable, Flyable{
+            private int numberOfEngines;
+            private int maxAltitude;
+            private int maxRange;
+            private String shippingLineOwner;
+            private int tonnage;
+
+            public FlyingBoat(String name, String manufacturer, int yearOfMaufacture, int maxPassengers, int topSpeed,int numberOfEngines, int maxAltitude, int maxRange, String shippingLineOwner, int tonnage){
+                super(name,manufacturer,yearOfManufacture,maxPassengers,topSpeed);
+            this.numberOfEngines=numberOfEngines;
+            this.maxAltitude= maxAltitude;
+            this.maxRange=maxRange;
+            this.shippingLineOwner=shippingLineOwner;
+            this.tonnage=tonnage;
+	    }
+            public int getNumberOfEngines(){
+                return numberOfEngines;
+            }
+            public void setNumberOfEngines(int numberOfEngines){
+		this.numberOfEngines=numberOfEngines;
+            }
+            public int getMaxAltitude(){
+		return maxAltitude;
+            }
+            public void setMaxAltitude(int maxAltitude){
+		this.maxAltitude=maxAltitude;
+            }
+            public int getMaxRange(){
+                return maxRange;
+            }
+            public void setMaxRange(int maxRange){
+                this.maxRange=maxRange;
+            }
+            public String getShippingLineOwner(){
+                return shippingLineOwner;
+            }
+            public void setShippingLineOwner(String shippingLineOwner){
+                this.shippingLineOwner=shippingLineOwner;
+            }
+            public int getTonnage(){
+                return tonnage;
+            }
+            public void setTonnage(int tonnage){
+                this.tonnage=tonnage;
+            }
+        }
